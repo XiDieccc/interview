@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+  var arr = [1, 2, 3, 4, 5];
+  // forEach()
+  Array.prototype._forEach = function(cb) {
+    var _this = this;
+    var _len = _this.length;
+    var args = arguments[1] || window;
+    for (var i = 0; i < _len; i++) {
+      cb.call(args, _this[i], i, _this);
+    }
+  }
+
+  arr._forEach((item, index) => {
+    console.log(item, index);
+  })
+
+  // map
+</script>
+
+</html>

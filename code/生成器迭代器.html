@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  var arr = [1, 2, 3]
+
+  // 生成器
+
+  // function* generator(arr) {
+  //   for (var v of arr) {
+  //     yield v
+  //   }
+  // }
+
+  function generator(arr) {
+    // 返回迭代器对象
+    var curIndex = 0
+    return {
+      next: function() {
+        return {
+          value: arr[curIndex++],
+          done: curIndex <= arr.length ?
+            false : true
+        }
+      }
+    }
+  }
+  const iterator = generator(arr);
+  // console.log(iterator)
+  console.log(iterator.next())
+  console.log(iterator.next())
+  console.log(iterator.next())
+  console.log(iterator.next())
+
+
+  // 迭代器 Symbol.iterator
+  Object.prototype[Symbol.iterator] = function() {
+    var _this = this;
+    var curIndex = 0;
+    return {
+      next() {
+        return {
+          value: _this[curIndex++],
+          done: curIndex <= _this.length ?
+            false : true
+        }
+      }
+    }
+  }
+
+  var obj = {
+    0: 0,
+    1: 1,
+    2: 2,
+    length: 3
+  }
+  for (var v of obj) {
+    console.log(v)
+  }
+</script>
+
+</html>
