@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // // 1. 原型链继承
+  // function father() {
+  //   this.name = 'father'
+  // }
+  // father.prototype.getName = function() {
+  //   console.log(this.name)
+  // }
+
+  // function child() {
+  //   this.name = 'child'
+  // }
+
+  // child.prototype = father.prototype
+
+  // var son = new child()
+  // son.getName()
+
+
+  // // 2. 构造函数继承
+
+  // function superType(name) {
+  //   this.name = name;
+  // }
+  // superType.prototype.getName = function() {
+  //   console.log(this.name);
+  // }
+
+
+  // function subType(age) {
+  //   this.age = age;
+  //   var temp = superType.bind(this);
+  //   return new temp('subType');
+  // }
+
+
+  // var sub = new subType(12);
+  // sub.getName();
+  // console.log(sub);
+
+  // 寄生组合式继承
+  Function.prototype.inheritFun = function(father) {
+    var child = this;
+    child.prototype = Object.create(father.prototype);
+    child.prototype.constructor = child;
+  }
+
+  // 父类
+  function father(name) {
+    this.name = name;
+    this.numbers = [1, 2, 3];
+  }
+  father.prototype.getName = function() {
+    console.log(this.name);
+  }
+
+  // 子类
+  function child(name) {
+    // 继承属性
+    father.call(this, name);
+    // 添加属性
+    this.numbers = [0, 0, 0];
+  }
+  // 继承方法
+  child.inheritFun(father);
+  // 添加方法
+  child.prototype.getNumers = function() {
+    console.log(this.numbers)
+  }
+  var sub = new child('child');
+  var sup = new father('father');
+  console.log(sup);
+  console.log(sub);
+  console.log(child.prototype.__proto__ === father.prototype)
+</script>
+
+</html>
