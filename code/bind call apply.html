@@ -12,9 +12,67 @@
 
 </body>
 <script>
-  Function.prototype.myCall = function(obj, ...args) {
-
+  var getName = function() {
+    console.log(this.fn)
   }
+
+  var a = {
+    name: 'aaa'
+  }
+  var b = {
+    speak() {
+      console.log(this, 'speakspeak')
+
+    }
+  }
+
+  // getName.call(a);
+
+  Function.prototype.myCall = function(contex, ...args) {
+    contex = contex ? Object(contex) : window;
+    contex.fn = this;
+    var res = contex.fn(...args);
+    // delete contex.fn;
+    // Reflect.deleteProperty(contex, 'fn');
+    return res;
+  }
+  getName.myCall(a);
+  b.speak.myCall(a, '1231');
+  console.log(a);
+
+
+  Function.prototype.myApply = function(contex, args) {
+    contex = contex ? Object(contex) : window;
+    contex.fn = this;
+    var res = contex.fn(...args);
+    delete contex.fn;
+    return res;
+  }
+
+  b.speak.myApply(a, [1, 2, 3, 4]);
+
+
+  Function.prototype.myBind = function(contex, ...args) {
+    contex = contex ? Object(contex) : window;
+    if (!this || typeof this !== 'function') {
+      throw new TypeError('what is to be Bound is not a function!');
+    }
+    var fn = this;
+
+    function Bound() {
+      return fn.apply(this instanceof Bound ?
+        this :
+        contex,
+        args.concat(Array.from(arguments)))
+    }
+    var tempproto = function() {}
+    fn.prototype && (tempproto.prototype = fn.prototype);
+    Bound.prototype = new tempproto();
+    return Bound;
+  }
+  var fntemp = b.speak.myBind(a, 'bindbindbindbind');
+  var c = new fntemp('ccccccccccccc');
+  console.log(c)
 </script>
 
 </html>
