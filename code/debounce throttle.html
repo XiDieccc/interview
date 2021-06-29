@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="father">
+    <div class="son">
+      <div class="lazy"></div>
+    </div>
+  </div>
+</body>
+<script>
+  const father = document.querySelector('.father');
+  const son = document.querySelector('.son');
+  const lazy = document.querySelector('.lazy');
+
+  var cb = function() {
+      console.log("scrollHeight", son.scrollHeight);
+      console.log("scrollTop", father.scrollTop);
+      console.log(lazy.offsetTop)
+        // lazy-load:
+        // father.clientHeight + self.scrollTop = self.offsetTop
+
+    }
+    // father.onscroll = debounce(cb, 1000);
+  father.onscroll = throttle2(cb, 1000);
+
+
+
+  function debounce(fn, delay) {
+    var timeout = null;
+    return function() {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(fn, delay);
+    }
+  }
+
+  function throttle(fn, delay) {
+    var timeout = null;
+    return function() {
+      if (timeout) {
+        return;
+      } else {
+        timeout = setTimeout(() => {
+          fn();
+          clearTimeout(timeout);
+          timeout = null;
+        }, delay);
+      }
+    }
+  }
+
+  function throttle2(fn, delay) {
+    var running = false;
+    return function() {
+      if (running) {
+        return;
+      } else {
+        setTimeout(() => {
+          fn();
+          running = false;
+        }, delay);
+        running = true;
+      }
+    }
+  }
+</script>
+
+<style>
+  html {
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .father {
+    height: 200px;
+    overflow: scroll;
+  }
+  
+  .son {
+    background-color: aqua;
+    height: 2000px;
+  }
+  
+  .lazy {
+    margin-top: 500px;
+    height: 100px;
+    background-color: red;
+  }
+</style>
+
+</html>
