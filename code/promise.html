@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  const PENDING = 'pending',
+    FULLFILLED = 'fullfilled',
+    REJECTED = 'rejected';
+
+  function myPromise(executor) {
+    var _this = this
+    this.state = PENDING;
+    this.value = undefined;
+    this.reason = undefined;
+
+    this.onFullfilled = [];
+    this.onRejected = [];
+
+    function resolve(value) {
+      if (_this.state === PENDING) {
+        _this.state = FULLFILLED;
+        _this.value = value;
+        _this.onFullfilled.forEach(fn => fn(value));
+      }
+    }
+
+    function reject(reason) {
+      if (_this.state === PENDING) {
+        _this.state = REJECTED;
+        _this.reason = reason;
+        _this.onRejected.forEach(fn => fn(reason));
+      }
+    }
+
+    try {
+      executor(resolve, reject);
+    } catch (error) {
+      reject(error);
+    }
+  }
+  myPromise.prototype.then = function(onFullfilled, onRejected) {
+    this.state === FULLFILLED && typeof onFullfilled === 'function' && onFullfilled(this.value);
+    this.state === REJECTED && typeof onRejected === 'function' && onRejected(this.reason);
+    this.state === PENDING && (typeof onFullfilled === 'function' && this.onFullfilled.push(onFullfilled)) && (typeof onRejected === 'function' && this.onRejected.push(onRejected));
+
+  }
+
+  var test = new myPromise((resolve, reject) => {
+    console.log('myPromise')
+    setTimeout(() => {
+      resolve('test');
+    }, 2000)
+  })
+  test.then(res => {
+    console.log(res);
+  })
+</script>
+
+</html>
