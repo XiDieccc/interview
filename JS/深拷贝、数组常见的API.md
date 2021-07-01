@@ -87,7 +87,7 @@ var resObj = lodash.cloneDeep(srcObj)
 
 - `Object.keys()` 仅仅返回自身的可枚举属性，不包括继承来的，更不包括Symbol属性
 - `Object.getOwnPropertyNames()` 返回自身的可枚举和不可枚举属性。但是不包括Symbol属性
-- `Object.getOwnPropertySymbols()` 返回自身的Symol属性
+- `Object.getOwnPropertySymbols()` **返回自身的Symol属性**
 - `for...in` 可以遍历对象的自身的和继承的可枚举属性，不包含Symbol属性
 - `Reflect.ownkeys() `返回对象自身的所有属性，不管是否可枚举，也不管是否是Symbol。注意不包括继承的属性
 

@@ -21,16 +21,15 @@
   const lazy = document.querySelector('.lazy');
 
   var cb = function() {
-      console.log("scrollHeight", son.scrollHeight);
-      console.log("scrollTop", father.scrollTop);
-      console.log(lazy.offsetTop)
-        // lazy-load:
-        // father.clientHeight + self.scrollTop = self.offsetTop
+    console.log("scrollHeight", son.scrollHeight);
+    console.log("scrollTop", father.scrollTop);
+    console.log(lazy.offsetTop)
+      // lazy-load:
+      // father.clientHeight + self.scrollTop = self.offsetTop
 
-    }
-    // father.onscroll = debounce(cb, 1000);
-  father.onscroll = throttle2(cb, 1000);
-
+  }
+  father.onscroll = debounce(cb, 1000);
+  // father.onscroll = throttle2(cb, 1000);
 
 
   function debounce(fn, delay) {
