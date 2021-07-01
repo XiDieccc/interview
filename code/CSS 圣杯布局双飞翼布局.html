@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <header></header>
+  <div class="container">
+    <div class="middle"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+  <footer></footer>
+</body>
+<style>
+  html {
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    height: 100px;
+    width: 100%;
+    background-color: red;
+  }
+  
+  .container {
+    /* flex布局 */
+    /* display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    justify-content: stretch; */
+    overflow: hidden;
+    padding: 0 100px 0 50px;
+    height: 300px;
+  }
+  
+  .left {
+    /* flex: 0 0 50px; */
+    width: 50px;
+    height: 300px;
+    float: left;
+    position: relative;
+    left: -50px;
+    margin-left: -100%;
+    background-color: orchid;
+  }
+  
+  .right {
+    /* flex: 0 0 100px; */
+    width: 100px;
+    height: 300px;
+    float: left;
+    margin-left: -100px;
+    position: relative;
+    right: -100px;
+    background-color: orange;
+  }
+  
+  .middle {
+    /* flex: 1 0 200px; */
+    height: 300px;
+    width: 100%;
+    float: left;
+    background-color: greenyellow;
+  }
+  
+  footer {
+    height: 100px;
+    width: 100%;
+    background-color: blue;
+    clear: both;
+  }
+</style>
+
+</html>
+<!-- 
+参考：
+https://www.cnblogs.com/imwtr/p/4441741.html -->
