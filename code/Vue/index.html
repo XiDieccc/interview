@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app" v-s="aaa">
+    <div>
+      {{person.name}}
+    </div>
+  </div>
+</body>
+<script src="./MVue.js"></script>
+<script>
+  const app = new MVue({
+    el: '#app',
+    data: {
+      person: {
+        name: 'Xidieccc',
+        age: 22
+      }
+    }
+  })
+  const sel = document.querySelector('#app');
+  const newNode = document.createElement('div');
+  // console.log(newNode);
+
+  // console.log(sel.firstChild);
+  // console.log(sel)
+  let children = sel.childNodes;
+  console.log(children)
+  let child
+  let index = 1
+  while (children.length) {
+    child = children[0];
+
+    console.log(index++, child)
+    newNode.appendChild(child);
+    console.log(children)
+  }
+  // console.log(newNode);
+  sel.appendChild(newNode);
+  // console.log(sel)
+  console.log('----------------------------')
+  console.log(...sel.attributes)
+</script>
+
+</html>
